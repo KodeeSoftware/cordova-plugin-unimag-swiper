@@ -588,34 +588,37 @@ public class UnimagSwiper extends CordovaPlugin implements uniMagReaderMsg {
     *         Parsed card data or null if invalid
     */
     private JSONObject parseCardData(String data) {
-        Matcher mtchr = cardParserPtrn.matcher(data);
+        JSONObject cardData = new JSONObject();
+        cardData.put("data", data);
+        return cardData;
+        // Matcher mtchr = cardParserPtrn.matcher(data);
 
-        String num = null;
-        String[] name = new String[2];
-        String exp = null;
+        // String num = null;
+        // String[] name = new String[2];
+        // String exp = null;
 
-        while (mtchr.find()) {
-            num = mtchr.group(1);
-            name = mtchr.group(2).split("/");
-            exp = mtchr.group(3);
-        } 
+        // while (mtchr.find()) {
+        //     num = mtchr.group(1);
+        //     name = mtchr.group(2).split("/");
+        //     exp = mtchr.group(3);
+        // } 
 
-        if (num != null && name[0] != null && name[1] != null && exp != null) {
-            try {
-                JSONObject cardData = new JSONObject();
-                cardData.put("card_number", num);
-                cardData.put("expiry_month", exp.substring(2));
-                cardData.put("expiry_year", exp.substring(0, 2));
-                cardData.put("first_name", name[1].trim());
-                cardData.put("last_name", name[0].trim());
-                cardData.put("trimmedUnimagData", data.replaceAll("\\s",""));
+        // if (num != null && name[0] != null && name[1] != null && exp != null) {
+        //     try {
+        //         JSONObject cardData = new JSONObject();
+        //         cardData.put("card_number", num);
+        //         cardData.put("expiry_month", exp.substring(2));
+        //         cardData.put("expiry_year", exp.substring(0, 2));
+        //         cardData.put("first_name", name[1].trim());
+        //         cardData.put("last_name", name[0].trim());
+        //         cardData.put("trimmedUnimagData", data.replaceAll("\\s",""));
 
-                return cardData;
-            } catch (JSONException e) {
-                e.printStackTrace();
-                return null;
-            }
-        } else return null;
+        //         return cardData;
+        //     } catch (JSONException e) {
+        //         e.printStackTrace();
+        //         return null;
+        //     }
+        // } else return null;
     }
 
     /**
