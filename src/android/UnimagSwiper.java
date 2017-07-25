@@ -588,9 +588,19 @@ public class UnimagSwiper extends CordovaPlugin implements uniMagReaderMsg {
     *         Parsed card data or null if invalid
     */
     private JSONObject parseCardData(String data) {
-        JSONObject cardData = new JSONObject();
-        cardData.put("data", data);
-        return cardData;
+        
+        try{
+            JSONObject cardData = new JSONObject();
+            cardData.put("data", data);
+            return cardData;
+        }
+        catch(JsonException e)
+        {
+             e.printStackTrace();
+             return null;
+        }
+
+
         // Matcher mtchr = cardParserPtrn.matcher(data);
 
         // String num = null;
